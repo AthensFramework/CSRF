@@ -23,7 +23,32 @@ Of course, if you're not using Composer then you can download the repository usi
 Use
 ===
 
-Instructions to follow.
+Using this package requires only two lines:
+```
+    // Import the CSRF class
+    use UWDOEM\CSRF\CSRF;
+    
+    // Intialize
+    CSRF::init();
+```
+
+The method `::init()` will automatically insert a hidden CSRF token field into your forms:
+```
+    <!--output html-->
+    ...
+    <form>
+        <input type=hidden name=csrf_token value=37328bc2cac3e73623bc38ab0f4068ee7fa1>
+    ...
+```
+
+Incase you perform form submission via AJAX, `::init()` also inserts a `CSRF_TOKEN` variable into your javascript:
+```
+    <!--output html-->
+    ...
+    <head>
+        <script>var CSRFTOKEN = '37328bc2cac3e73623bc38ab0f4068ee7fa1';</script>
+    ...
+```
 
 Troubleshooting
 ===============
