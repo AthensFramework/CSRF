@@ -1,5 +1,5 @@
 
-UWDOEM/Person
+UWDOEM/CSRF
 =============
 
 Easily protect against CSRF attacks.
