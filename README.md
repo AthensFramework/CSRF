@@ -13,7 +13,7 @@ This library is published on packagist. To install using Composer, add the `"uwd
 ```
 {
     "require": {
-        "uwdoem/csrf": "0.1.*"
+        "uwdoem/csrf": ">=0.1"
     }
 }
 ```
