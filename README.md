@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/UWEnrollmentManagement/CSRF.svg?branch=master)](https://travis-ci.org/UWEnrollmentManagement/CSRF)
 
 UWDOEM/CSRF
 =============
