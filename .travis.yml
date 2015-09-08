@@ -6,7 +6,9 @@ php:
 addons:
   code_climate:
     repo_token: be1e1f80ab2747d98df9186da66baaf17878c89e331fa030c60b95afc13cb75d
-before_script: composer install
+before_script:
+  - sed -i '/phpdocumentor/d' composer.json
+  - composer install
 script: phpunit --configuration tests/phpunit.xml tests
 after_script:
   - vendor/bin/test-reporter
