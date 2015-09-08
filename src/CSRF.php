@@ -20,47 +20,54 @@ class CSRF {
      */
     static function init() {
 
-        // Insert a CSRF token into the session, if none is present
-        if (!isset($_SESSION['csrf_token'])) {
-            $_SESSION['csrf_token'] = bin2hex(openssl_random_pseudo_bytes(16));
-        }
+        // Insert a CSRF token into the session
+        static::generateToken();
 
         // Checks if a CSRF token is required for this request, and, if so, whether the correct one is present
         static::checkCSRF();
 
-        // Create an output buffering callback, to insert our CSRF tokens into the page
-        $callback = function ($page) {
-            if (isset($_SESSION) && array_key_exists("csrf_token", $_SESSION)) {
-                $CSRFToken = $_SESSION['csrf_token'];
-                $tokenField = "\n<input type=hidden name=csrf_token value=$CSRFToken>\n";
-                $tokenJS = "\n<script>var CSRFTOKEN = '$CSRFToken';</script>\n";
+        // Begin output buffering, with callback to insert our CSRF tokens into the page
+        ob_start(static::generateCallback(static::getToken()));
+    }
 
-                if (strpos(strtolower($page), "<head>") !== False) {
-                    $page = substr_replace($page, "<head>" . $tokenJS, strpos(strtolower($page), "<head>"), 6);
-                }
+    private static function generateToken() {
+        if (!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(openssl_random_pseudo_bytes(16));
+        }
+    }
 
-                $lastPosition = strlen($page) - 1;
-                while ($lastPosition = strrpos(strtolower($page), "<form", $lastPosition - strlen($page) - 1)) {
-                    $formClose = strpos($page, ">", $lastPosition);
-                    $page = substr_replace($page, $tokenField, $formClose + 1, 0);
-                }
+    private static function getToken() {
+        return $_SESSION['csrf_token'];
+    }
+
+    static protected function generateCallback($token) {
+        return function ($page) use ($token) {
+
+            $tokenField = "\n<input type=hidden name=csrf_token value=$token>\n";
+            $tokenJS = "\n<script>var CSRFTOKEN = '$token';</script>\n";
+
+            if (strpos(strtolower($page), "<head>") !== False) {
+                $page = substr_replace($page, "<head>" . $tokenJS, strpos(strtolower($page), "<head>"), 6);
+            }
+
+            $lastPosition = strlen($page) - 1;
+            while ($lastPosition = strrpos(strtolower($page), "<form", $lastPosition - strlen($page) - 1)) {
+                $formClose = strpos($page, ">", $lastPosition);
+                $page = substr_replace($page, $tokenField, $formClose + 1, 0);
             }
 
             return $page;
         };
-
-        // Begin output buffering
-        ob_start($callback);
     }
 
-    static private function checkCSRF() {
+    static protected function checkCSRF() {
 
-        if (!isset($_SESSION['csrf_token'])) {
-            throw new \Exception('No CSRF Token set in $_SESSION. Invoke \OSFAFramework\Etc\Utils::CSRFSetup before ::checkCSRF');
+        if (!array_key_exists("csrf_token", $_SESSION)) {
+            throw new \Exception('No CSRF Token set in $_SESSION. Invoke \UWDOEM\CSRF\CSRF::init before ::checkCSRF');
         }
 
         if (in_array($_SERVER['REQUEST_METHOD'], static::$unsafe_methods)) {
-            if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] != $_SESSION['csrf_token']) {
+            if (!array_key_exists("csrf_token", $_POST) || $_POST['csrf_token'] != static::getToken()) {
                 if (!headers_sent()) { header("HTTP/1.0 403 Forbidden"); }
 
                 echo "Page error: CSRF token missing or incorrect. If this problem persists, please contact the page administrator.\n";
