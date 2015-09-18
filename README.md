@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/UWEnrollmentManagement/CSRF.svg?branch=master)](https://travis-ci.org/UWEnrollmentManagement/CSRF)
 [![Code Climate](https://codeclimate.com/github/UWEnrollmentManagement/CSRF/badges/gpa.svg)](https://codeclimate.com/github/UWEnrollmentManagement/CSRF)
 [![Test Coverage](https://codeclimate.com/github/UWEnrollmentManagement/CSRF/badges/coverage.svg)](https://codeclimate.com/github/UWEnrollmentManagement/CSRF/coverage)
+[![Latest Stable Version](https://poser.pugx.org/uwdoem/csrf/v/stable)](https://packagist.org/packages/uwdoem/csrf)
 
 UWDOEM/CSRF
 =============
