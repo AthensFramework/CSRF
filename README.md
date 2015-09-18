@@ -61,7 +61,7 @@ Troubleshooting
 Compatibility
 =============
 
-* PHP5
+* PHP 5.5, 5.6, 7.0
 
 Todo
 ====
