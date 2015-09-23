@@ -6,7 +6,7 @@
 UWDOEM/CSRF
 =============
 
-Easily protect against CSRF attacks.
+Easily protect against [CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) attacks.
 
 
 Installation
