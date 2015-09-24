@@ -69,10 +69,6 @@ Todo
 
 See GitHub [issue tracker](https://github.com/UWEnrollmentManagement/CSRF/issues/).
 
-License
-====
-
-Employees of the University of Washington may use this code in any capacity, without reservation.
 
 Getting Involved
 ================
