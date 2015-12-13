@@ -74,3 +74,11 @@ Getting Involved
 ================
 
 Feel free to open pull requests or issues. [GitHub](https://github.com/UWEnrollmentManagement/CSRF) is the canonical location of this project.
+
+Here's the general sequence of events for code contribution:
+
+1. Open an issue in the [issue tracker](https://github.com/UWEnrollmentManagement/CSRF/issues/).
+2. In any order:
+  * Submit a pull request with a **failing** test that demonstrates the issue/feature.
+  * Get acknowledgement/concurrence.
+3. Revise your pull request to pass the test in (2). Include documentation, if appropriate.
