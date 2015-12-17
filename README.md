@@ -6,7 +6,7 @@
 UWDOEM/CSRF
 =============
 
-Easily protect against CSRF attacks.
+Easily protect against [CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) attacks.
 
 
 Installation
@@ -69,12 +69,16 @@ Todo
 
 See GitHub [issue tracker](https://github.com/UWEnrollmentManagement/CSRF/issues/).
 
-License
-====
-
-Employees of the University of Washington may use this code in any capacity, without reservation.
 
 Getting Involved
 ================
 
 Feel free to open pull requests or issues. [GitHub](https://github.com/UWEnrollmentManagement/CSRF) is the canonical location of this project.
+
+Here's the general sequence of events for code contribution:
+
+1. Open an issue in the [issue tracker](https://github.com/UWEnrollmentManagement/CSRF/issues/).
+2. In any order:
+  * Submit a pull request with a **failing** test that demonstrates the issue/feature.
+  * Get acknowledgement/concurrence.
+3. Revise your pull request to pass the test in (2). Include documentation, if appropriate.
