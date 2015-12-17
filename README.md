@@ -46,6 +46,7 @@ The method `::init()` will automatically insert a hidden CSRF token field into y
         <input type=hidden name=csrf_token value=37328bc2cac3e73623bc38ab0f4068ee7fa1>
     ...
 ```
+This token will be included automatically in any of your form submissions.
 
 Incase you perform form submission via AJAX, `::init()` also inserts a `CSRF_TOKEN` variable into your javascript:
 ```
@@ -55,6 +56,7 @@ Incase you perform form submission via AJAX, `::init()` also inserts a `CSRF_TOK
         <script>var CSRFTOKEN = '37328bc2cac3e73623bc38ab0f4068ee7fa1';</script>
     ...
 ```
+This token will not automatically be included in your AJAX requests, but you may include it manually by referring to the `CSRFTOKEN` var in your submission script.
  
 Compatibility
 -------------
