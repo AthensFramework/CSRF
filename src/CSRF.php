@@ -73,12 +73,19 @@ class CSRF
                 $page = substr_replace($page, "<head>" . $tokenJS, strpos(strtolower($page), "<head>"), 6);
             }
 
-            $lastPosition = strlen($page) - 1;
-            while ($lastPosition = strrpos(strtolower($page), "<form", $lastPosition - strlen($page) - 1)) {
-                $formClose = strpos($page, ">", $lastPosition);
-                $page = substr_replace($page, $tokenField, $formClose + 1, 0);
-            }
+            $matches = [];
+            if (preg_match_all('/<\s*\w*\s*form.*?>/i', $page, $matches, PREG_OFFSET_CAPTURE)) {
+                foreach ($matches[0] as $match) {
+                    $formOpen = $match[1];
+                    $formClose = strpos($page, ">", $formOpen);
 
+                    $formTag = substr($page, $formOpen, $formClose-$formOpen);
+                    $formIsMethodGet = stripos(str_replace(['"', "'"], ["", ""], $formTag), "method=get") !== false;
+                    if ($formIsMethodGet !== true) {
+                        $page = substr_replace($page, $tokenField, $formClose + 1, 0);
+                    }
+                }
+            }
             return $page;
         };
     }

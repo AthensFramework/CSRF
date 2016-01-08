@@ -73,6 +73,53 @@ HTML;
     }
 
     /**
+     * Invoking CSRF::init() should NOT insert a CSRF token field into a GET form.
+     *
+     * @return void
+     */
+    public function testDoesntInsertCSRFToGETForm()
+    {
+        $inPOST = <<<HTML
+<html>
+    <body>
+        <form>
+
+        </form>
+    </body>
+</html>
+HTML;
+        $inGET = <<<HTML
+<html>
+    <body>
+        <form method="GET">
+
+        </form>
+    </body>
+</html>
+HTML;
+
+        // Test no CSRF token required, none provided
+        $_SERVER['REQUEST_METHOD'] = "GET";
+
+        ob_start();
+        CSRF::init();
+        echo $inPOST;
+        ob_end_flush();
+        $resultPOST = ob_get_clean();
+
+        ob_start();
+        CSRF::init();
+        echo $inGET;
+        ob_end_flush();
+        $resultGET = ob_get_clean();
+
+        $this->assertContains("value=" . $_SESSION['csrf_token'], $resultPOST);
+        $this->assertNotContains("value=" . $_SESSION['csrf_token'], $resultGET);
+
+
+    }
+
+    /**
      * Invoking the CSRF::init() method shall cause a CSRF token to be stored
      * in the visitor's session.
      *
