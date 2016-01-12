@@ -115,8 +115,36 @@ HTML;
 
         $this->assertContains("value=" . $_SESSION['csrf_token'], $resultPOST);
         $this->assertNotContains("value=" . $_SESSION['csrf_token'], $resultGET);
+    }
 
+    /**
+     * CSRF::init() should be able to insert to a form tag with multiple attributes and lines.
+     *
+     * @return void
+     */
+    public function testDoesntInsertComplicatedFormTag()
+    {
+        $inComplicated = <<<HTML
+<html>
+    <body>
+        <form id="test-form"
+              class="class-a class-b">
 
+        </form>
+    </body>
+</html>
+HTML;
+
+        // Test no CSRF token required, none provided
+        $_SERVER['REQUEST_METHOD'] = "GET";
+
+        ob_start();
+        CSRF::init();
+        echo $inComplicated;
+        ob_end_flush();
+        $resultComplicated = ob_get_clean();
+
+        $this->assertContains("value=" . $_SESSION['csrf_token'], $resultComplicated);
     }
 
     /**
