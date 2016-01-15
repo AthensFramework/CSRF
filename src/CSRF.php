@@ -76,7 +76,7 @@ class CSRF
             $matches = [];
             if (preg_match_all('/<\s*\w*\s*form.*?>/is', $page, $matches, PREG_OFFSET_CAPTURE)) {
                 foreach ($matches[0] as $match) {
-                    $formOpen = $match[1];
+                    $formOpen = strpos($page, $match[0], $match[1]);
                     $formClose = strpos($page, ">", $formOpen);
 
                     $formTag = substr($page, $formOpen, $formClose-$formOpen);
