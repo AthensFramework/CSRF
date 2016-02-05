@@ -76,7 +76,7 @@ class CSRF
             $matches = [];
             if (preg_match_all('/<\s*\w*\s*form.*?>/is', $page, $matches, PREG_OFFSET_CAPTURE)) {
                 foreach ($matches[0] as $match) {
-                    $formOpen = $match[1];
+                    $formOpen = strpos($page, $match[0], $match[1]);
                     $formClose = strpos($page, ">", $formOpen);
 
                     $formTag = substr($page, $formOpen, $formClose-$formOpen);
@@ -102,7 +102,14 @@ class CSRF
         }
 
         if (in_array($_SERVER['REQUEST_METHOD'], static::$unsafe_methods)) {
-            if (!array_key_exists("csrf_token", $_POST) || $_POST['csrf_token'] != static::getToken()) {
+
+            $requestArguments = [];
+            parse_str(file_get_contents('php://input'), $requestArguments);
+
+            $requestArguments = array_merge($_POST, $requestArguments);
+
+            if (!array_key_exists("csrf_token", $requestArguments) || $requestArguments['csrf_token'] != static::getToken()) {
+                print_r(file_get_contents('php://input'));
                 if (!headers_sent()) {
                     header("HTTP/1.0 403 Forbidden");
                 }
