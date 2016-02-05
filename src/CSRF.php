@@ -45,7 +45,7 @@ class CSRF
      */
     protected static function generateToken()
     {
-        if (!isset($_SESSION['csrf_token'])) {
+        if (isset($_SESSION['csrf_token']) === false) {
             $_SESSION['csrf_token'] = bin2hex(openssl_random_pseudo_bytes(16));
         }
     }
@@ -74,7 +74,7 @@ class CSRF
             }
 
             $matches = [];
-            if (preg_match_all('/<\s*\w*\s*form.*?>/is', $page, $matches, PREG_OFFSET_CAPTURE)) {
+            if (preg_match_all('/<\s*\w*\s*form.*?>/is', $page, $matches, PREG_OFFSET_CAPTURE) !== 0) {
                 foreach ($matches[0] as $match) {
                     $formOpen = strpos($page, $match[0], $match[1]);
                     $formClose = strpos($page, ">", $formOpen);
@@ -97,20 +97,20 @@ class CSRF
     protected static function checkCSRF()
     {
 
-        if (!array_key_exists("csrf_token", $_SESSION)) {
+        if (array_key_exists("csrf_token", $_SESSION) === false) {
             throw new \Exception('No CSRF Token set in $_SESSION. Invoke \UWDOEM\CSRF\CSRF::init before ::checkCSRF');
         }
 
-        if (in_array($_SERVER['REQUEST_METHOD'], static::$unsafe_methods)) {
+        if (in_array($_SERVER['REQUEST_METHOD'], static::$unsafe_methods) === true) {
 
             $requestArguments = [];
             parse_str(file_get_contents('php://input'), $requestArguments);
-
             $requestArguments = array_merge($_POST, $requestArguments);
 
-            if (!array_key_exists("csrf_token", $requestArguments) || $requestArguments['csrf_token'] != static::getToken()) {
-                print_r(file_get_contents('php://input'));
-                if (!headers_sent()) {
+            if (array_key_exists("csrf_token", $requestArguments) === false
+                || $requestArguments['csrf_token'] !== static::getToken()) {
+
+                if (headers_sent() === false) {
                     header("HTTP/1.0 403 Forbidden");
                 }
 
