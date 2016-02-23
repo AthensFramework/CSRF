@@ -1,6 +1,6 @@
 <?php
 
-namespace Athens;
+namespace Athens\CSRF;
 
 /**
  * Class CSRF provides methods for protection against CSRF attacks.

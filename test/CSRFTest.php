@@ -4,7 +4,7 @@ namespace Athens\CSRF\Test;
 
 use PHPUnit_Framework_TestCase;
 
-use Athens\CSRF;
+use Athens\CSRF\CSRF;
 
 /**
  * Class CSRFTest

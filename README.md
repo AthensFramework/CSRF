@@ -32,7 +32,7 @@ Use
 Using this package requires only two lines:
 ```
     // Import the CSRF class
-    use Athens\CSRF;
+    use Athens\CSRF\CSRF;
     
     // Intialize
     CSRF::init();
