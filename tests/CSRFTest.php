@@ -1,15 +1,15 @@
 <?php
 
-namespace UWDOEM\CSRF\Test;
+namespace Athens\CSRF\Test;
 
 use PHPUnit_Framework_TestCase;
 
-use UWDOEM\CSRF\CSRF;
+use Athens\CSRF\CSRF;
 
 /**
  * Class CSRFTest
  *
- * @package UWDOEM\CSRF\Test
+ * @package Athens\CSRF\Test
  */
 class CSRFTest extends PHPUnit_Framework_TestCase
 {

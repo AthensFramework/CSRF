@@ -1,5 +1,5 @@
 {
-  "name": "uwdoem/csrf",
+  "name": "athens/csrf",
   "description": "Simple CSRF protection",
   "autoload": {
     "classmap": [
@@ -10,6 +10,6 @@
     "phpdocumentor/phpdocumentor": "2.*",
     "phpunit/phpunit": "4.*",
     "codeclimate/php-test-reporter": "dev-master",
-    "uwdoem/standard": "*"
+    "athens/standard": "*"
   }
 }

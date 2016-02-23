@@ -1,11 +1,11 @@
 <?php
 
-namespace UWDOEM\CSRF;
+namespace Athens\CSRF;
 
 /**
  * Class CSRF provides methods for protection against CSRF attacks.
  *
- * @package UWDOEM\CSRF
+ * @package Athens\CSRF
  */
 class CSRF
 {
@@ -98,7 +98,7 @@ class CSRF
     {
 
         if (array_key_exists("csrf_token", $_SESSION) === false) {
-            throw new \Exception('No CSRF Token set in $_SESSION. Invoke \UWDOEM\CSRF\CSRF::init before ::checkCSRF');
+            throw new \Exception('No CSRF Token set in $_SESSION. Invoke \Athens\CSRF\CSRF::init before ::checkCSRF');
         }
 
         if (in_array($_SERVER['REQUEST_METHOD'], static::$unsafe_methods) === true) {
@@ -118,7 +118,7 @@ class CSRF
                     "please contact the page administrator.\n";
 
                 throw new \Exception("CSRF token missing or incorrect. Ensure that you " .
-                    "are using UWDOEM\\CSRF\\CSRF::init() to insert the CSRF token into " .
+                    "are using Athens\\CSRF\\CSRF::init() to insert the CSRF token into " .
                     "submitted forms, and that any AJAX submission methods include the CSRF" .
                     "javascript variable.");
             }

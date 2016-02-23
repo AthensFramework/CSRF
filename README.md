@@ -1,9 +1,9 @@
-[![Build Status](https://travis-ci.org/UWEnrollmentManagement/CSRF.svg?branch=master)](https://travis-ci.org/UWEnrollmentManagement/CSRF)
-[![Code Climate](https://codeclimate.com/github/UWEnrollmentManagement/CSRF/badges/gpa.svg)](https://codeclimate.com/github/UWEnrollmentManagement/CSRF)
-[![Test Coverage](https://codeclimate.com/github/UWEnrollmentManagement/CSRF/badges/coverage.svg)](https://codeclimate.com/github/UWEnrollmentManagement/CSRF/coverage)
-[![Latest Stable Version](https://poser.pugx.org/uwdoem/csrf/v/stable)](https://packagist.org/packages/uwdoem/csrf)
+[![Build Status](https://travis-ci.org/AthensFramework/CSRF.svg?branch=master)](https://travis-ci.org/AthensFramework/CSRF)
+[![Code Climate](https://codeclimate.com/github/AthensFramework/CSRF/badges/gpa.svg)](https://codeclimate.com/github/AthensFramework/CSRF)
+[![Test Coverage](https://codeclimate.com/github/AthensFramework/CSRF/badges/coverage.svg)](https://codeclimate.com/github/AthensFramework/CSRF/coverage)
+[![Latest Stable Version](https://poser.pugx.org/athens/csrf/v/stable)](https://packagist.org/packages/athens/csrf)
 
-UWDOEM/CSRF
+Athens/CSRF
 =============
 
 Easily protect against [CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) attacks.
@@ -12,13 +12,13 @@ Easily protect against [CSRF](https://www.owasp.org/index.php/Cross-Site_Request
 Installation
 ------------
 
-This library is published on packagist. To install using Composer, add the `"uwdoem/csrf": "0.1.*"` line to your "require" dependencies:
+This library is published on packagist. To install using Composer, add the `"athens/csrf": "0.1.*"` line to your "require" dependencies:
 
 ```
 {
     "require": {
         ...
-        "uwdoem/csrf": "1.*",
+        "athens/csrf": "1.*",
         ...
     }
 }
@@ -32,7 +32,7 @@ Use
 Using this package requires only two lines:
 ```
     // Import the CSRF class
-    use UWDOEM\CSRF\CSRF;
+    use Athens\CSRF\CSRF;
     
     // Intialize
     CSRF::init();
@@ -66,17 +66,17 @@ Compatibility
 Todo
 ----
 
-See GitHub [issue tracker](https://github.com/UWEnrollmentManagement/CSRF/issues/).
+See GitHub [issue tracker](https://github.com/AthensFramework/CSRF/issues/).
 
 
 Getting Involved
 ----------------
 
-Feel free to open pull requests or issues. [GitHub](https://github.com/UWEnrollmentManagement/CSRF) is the canonical location of this project.
+Feel free to open pull requests or issues. [GitHub](https://github.com/AthensFramework/CSRF) is the canonical location of this project.
 
 Here's the general sequence of events for code contribution:
 
-1. Open an issue in the [issue tracker](https://github.com/UWEnrollmentManagement/CSRF/issues/).
+1. Open an issue in the [issue tracker](https://github.com/AthensFramework/CSRF/issues/).
 2. In any order:
   * Submit a pull request with a **failing** test that demonstrates the issue/feature.
   * Get acknowledgement/concurrence.
