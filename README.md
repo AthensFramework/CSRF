@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/AthensFramework/CSRF.svg?branch=master)](https://travis-ci.org/AthensFramework/CSRF)
-[![Code Climate](https://codeclimate.com/github/AthensFramework/CSRF/badges/gpa.svg)](https://codeclimate.com/github/AthensFramework/CSRF)
-[![Test Coverage](https://codeclimate.com/github/AthensFramework/CSRF/badges/coverage.svg)](https://codeclimate.com/github/AthensFramework/CSRF/coverage)
+[![Build Status](https://travis-ci.org/AthensFramework/csrf.svg?branch=master)](https://travis-ci.org/AthensFramework/csrf)
+[![Code Climate](https://codeclimate.com/github/AthensFramework/csrf/badges/gpa.svg)](https://codeclimate.com/github/AthensFramework/csrf)
+[![Test Coverage](https://codeclimate.com/github/AthensFramework/csrf/badges/coverage.svg)](https://codeclimate.com/github/AthensFramework/csrf/coverage)
 [![Latest Stable Version](https://poser.pugx.org/athens/csrf/v/stable)](https://packagist.org/packages/athens/csrf)
 
 Athens/CSRF
