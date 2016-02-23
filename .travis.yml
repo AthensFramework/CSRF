@@ -10,7 +10,7 @@ before_script:
   - sed -i '/phpdocumentor/d' composer.json
   - composer install
 script:
-  - phpunit --configuration tests/phpunit.xml tests
+  - phpunit --configuration tests/phpunit.xml test
   - ./vendor/bin/phpcs --ignore=*/vendor/*,*/bin/* --standard=./vendor/athens/standard/ruleset.xml .
 after_script:
   - vendor/bin/test-reporter
