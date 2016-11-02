@@ -92,6 +92,11 @@ class CSRF
         };
     }
 
+    /**
+     * Get the CSRF token, presented as a header, a PUT parameter, or a POST parameter.
+     *
+     * @return string|null
+     */
     protected static function getSuppliedCSRF()
     {
         $headers = function_exists('getallheaders') === true ? getallheaders() : [];
@@ -100,25 +105,34 @@ class CSRF
         parse_str(file_get_contents('php://input'), $requestArguments);
         $requestArguments = array_merge($_POST, $requestArguments);
 
-        if (array_key_exists(static::CSRF_TOKEN_HEADER, $headers)) {
+        if (array_key_exists(static::CSRF_TOKEN_HEADER, $headers) === true) {
             return $headers[static::CSRF_TOKEN_HEADER];
-        } elseif (array_key_exists("csrf_token", $requestArguments)) {
+        } elseif (array_key_exists("csrf_token", $requestArguments) === true) {
             return $requestArguments['csrf_token'];
         } else {
             return null;
         }
     }
 
+    /**
+     * Predicate which reports whether a CSRF token is required for the present request.
+     *
+     * @return boolean
+     */
     protected static function csrfIsRequired()
     {
         return in_array($_SERVER['REQUEST_METHOD'], static::$unsafe_methods);
     }
 
+    /**
+     * Returns the expected CSRF token in the current session.
+     *
+     * @return string|null
+     */
     protected static function getSessionCSRF()
     {
-        return array_key_exists('csrf_token', $_SESSION) ? $_SESSION['csrf_token'] : null;
+        return array_key_exists('csrf_token', $_SESSION) === true ? $_SESSION['csrf_token'] : null;
     }
-
 
     /**
      * @throws \Exception If the CSRF Token has not been set, is missing from the submission, or incorrect.
