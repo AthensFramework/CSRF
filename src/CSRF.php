@@ -10,6 +10,8 @@ namespace Athens\CSRF;
 class CSRF
 {
 
+    const CSRF_TOKEN_HEADER = 'CSRF-TOKEN';
+
     /**
      * A list of the "unsafe" HTTP methods for which we shall require a valid CSRF token.
      *
@@ -90,38 +92,56 @@ class CSRF
         };
     }
 
+    protected static function getSuppliedCSRF()
+    {
+        $headers = function_exists('getallheaders') === true ? getallheaders() : [];
+
+        $requestArguments = [];
+        parse_str(file_get_contents('php://input'), $requestArguments);
+        $requestArguments = array_merge($_POST, $requestArguments);
+
+        if (array_key_exists(static::CSRF_TOKEN_HEADER, $headers)) {
+            return $headers[static::CSRF_TOKEN_HEADER];
+        } elseif (array_key_exists("csrf_token", $requestArguments)) {
+            return $requestArguments['csrf_token'];
+        } else {
+            return null;
+        }
+    }
+
+    protected static function csrfIsRequired()
+    {
+        return in_array($_SERVER['REQUEST_METHOD'], static::$unsafe_methods);
+    }
+
+    protected static function getSessionCSRF()
+    {
+        return array_key_exists('csrf_token', $_SESSION) ? $_SESSION['csrf_token'] : null;
+    }
+
+
     /**
      * @throws \Exception If the CSRF Token has not been set, is missing from the submission, or incorrect.
      * @return void
      */
     protected static function checkCSRF()
     {
-
-        if (array_key_exists("csrf_token", $_SESSION) === false) {
+        if (static::getSessionCSRF() === null) {
             throw new \Exception('No CSRF Token set in $_SESSION. Invoke \Athens\CSRF\CSRF::init before ::checkCSRF');
         }
 
-        if (in_array($_SERVER['REQUEST_METHOD'], static::$unsafe_methods) === true) {
-
-            $requestArguments = [];
-            parse_str(file_get_contents('php://input'), $requestArguments);
-            $requestArguments = array_merge($_POST, $requestArguments);
-
-            if (array_key_exists("csrf_token", $requestArguments) === false
-                || $requestArguments['csrf_token'] !== static::getToken()) {
-
-                if (headers_sent() === false) {
-                    header("HTTP/1.0 403 Forbidden");
-                }
-
-                echo "Page error: CSRF token missing or incorrect. If this problem persists, " .
-                    "please contact the page administrator.\n";
-
-                throw new \Exception("CSRF token missing or incorrect. Ensure that you " .
-                    "are using Athens\\CSRF\\CSRF::init() to insert the CSRF token into " .
-                    "submitted forms, and that any AJAX submission methods include the CSRF" .
-                    "javascript variable.");
+        if (static::csrfIsRequired() === true && static::getSuppliedCSRF() !== static::getToken()) {
+            if (headers_sent() === false) {
+                header("HTTP/1.0 403 Forbidden");
             }
+
+            echo "Page error: CSRF token missing or incorrect. If this problem persists, " .
+                "please contact the page administrator.\n";
+
+            throw new \Exception("CSRF token missing or incorrect. Ensure that you " .
+                "are using Athens\\CSRF\\CSRF::init() to insert the CSRF token into " .
+                "submitted forms, and that any AJAX submission methods include the CSRF" .
+                "javascript variable.");
         }
     }
 }
