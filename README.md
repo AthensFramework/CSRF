@@ -12,13 +12,13 @@ Easily protect against [CSRF](https://www.owasp.org/index.php/Cross-Site_Request
 Installation
 ------------
 
-This library is published on packagist. To install using Composer, add the `"athens/csrf": "0.1.*"` line to your "require" dependencies:
+This library is published on packagist. To install using Composer, simply run `composer require athens/csrf` or add this line to your "require" dependencies:
 
 ```
 {
     "require": {
         ...
-        "athens/csrf": "1.*",
+        "athens/csrf": "2.*",
         ...
     }
 }
@@ -30,7 +30,7 @@ Use
 ---
 
 Using this package requires only two lines:
-```
+```php
     // Import the CSRF class
     use Athens\CSRF\CSRF;
     
@@ -39,7 +39,7 @@ Using this package requires only two lines:
 ```
 
 The method `::init()` will automatically insert a hidden CSRF token field into your forms:
-```
+```html
     <!--output html-->
     ...
     <form>
@@ -49,7 +49,7 @@ The method `::init()` will automatically insert a hidden CSRF token field into y
 This token will be included automatically in any of your form submissions.
 
 Incase you perform form submission via AJAX, `::init()` also inserts a `CSRF_TOKEN` variable into your javascript:
-```
+```html
     <!--output html-->
     ...
     <head>
